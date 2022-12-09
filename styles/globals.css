@@ -1,0 +1,188 @@
+:root {
+	/* 1 is the base color, <1 are darker variations and >1 are lighter */
+
+	--bg-shade-0: #131733;
+	--bg-shade-1: #1B1F3B;
+	--bg-shade-2: #23274A;
+	--bg-shade-2-5: #2D3258;
+	--bg-shade-3: #373C65;
+	--bg-shade-3-5: #404673;
+	--bg-shade-4: #494F81;
+
+	--accent-shade-0: #673DB6;
+	--accent-shade-1: #9D6FF3;
+	--accent-shade-2: #A185D6;
+	--accent-shade-3: #CAB1FB;
+
+	--text-shade-0: #8990C1;
+	--text-shade-1: #A1A8D9;
+	--text-shade-2: #CAC1F5;
+	--text-shade-3: #fff;
+
+	--green-shade-0: #37a985;
+	--green-shade-1: #59c9a5;
+
+	--red-shade-1: #a9375b;
+
+	--border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    background-color: var(--bg-shade-0);
+}
+
+.main-body {
+    font-family: Poppins, Arial, Helvetica, sans-serif;
+}
+
+.container {
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+}
+
+.container .main-title {
+    margin-top: 100px;
+}
+
+.container .title {
+    font-size: 4rem;
+    color: var(--text-shade-3);
+    margin-bottom: 30px;
+}
+
+.title:not([data-title-suffix])::after {
+	content: "";
+	background-color: var(--accent-shade-1);
+	width: 0.6rem;
+	height: 0.6rem;
+	border-radius: 50%;
+	display: inline-block;
+}
+.title[data-title-suffix]::after {
+	content: attr(data-title-suffix);
+	display: inline-block;
+	color: var(--accent-shade-1);
+}
+
+.main-title .description {
+    font-size: 1rem;
+    color: var(--text-shade-0);
+}
+
+.splatfest {
+    border: 10px solid var(--accent-shade-1);
+    border-radius: 8px;
+    margin-top: 50px;
+    background-color: var(--bg-shade-2);
+}
+
+.splatfest .splatfest-theme {
+    color: var(--text-shade-3);
+    font-size: 4rem;
+    margin-left: 2%;
+    margin-top: 40px;
+}
+
+.splatfest .splatfest-time {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    color: var(--text-shade-3);
+    margin-left: 2%;
+    font-size: 1.5rem;
+}
+
+.splatfest .splatfest-time .calender {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.splatfest .splatfest-image-container {
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 20px;
+}
+
+.splatfest .splatfest-image-container .splatfest-image {
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+}
+
+.splatfest .splatfest-stages {
+    display: flex;
+    padding-bottom: 20px;
+    align-items: center;
+}
+
+.stage {
+  padding-top: 20px;
+  width: 46%;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-bottom: 20px;
+}
+
+.stage .stage-name {
+  color: var(--text-shade-3);
+  padding-top: 10px;
+  padding-bottom: 5px;
+  font-size: 1.25rem;
+}
+
+.stage .stage-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.rotations {
+    display: flex;
+    padding-top: 20px;
+}
+
+.rotations .rotation-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.rotations .rotation-container .stage-containers {
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--bg-shade-2);
+    width: 48%;
+}
+
+.rotations .rotation-container .stage-containers .title-mode {
+    width: 100%;
+    font-size: 3rem;
+    color: var(--text-shade-3);
+    margin-left: 2%;
+    margin-top: 20px;
+}
+
+.rotations .rotation-container .stage-containers .rotation-info {
+    width: 90%;
+    margin-left: 2%;
+    margin-top: 40px;
+}
+
+.rotations .rotation-container .stage-containers .rotation-info .mode-image {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.rotations .rotation-container .stage-containers .rotation-info .clock {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.green {
+    border: 10px solid var(--green-shade-1);
+}
+
+.orange {
+    border: 10px solid #f28f0d;
+}
