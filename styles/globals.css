@@ -46,7 +46,7 @@ body {
 }
 
 .container .title {
-    font-size: 4rem;
+    font-size: 64px;
     color: var(--text-shade-3);
     margin-bottom: 30px;
 }
@@ -66,7 +66,7 @@ body {
 }
 
 .main-title .description {
-    font-size: 1rem;
+    font-size: 16px;
     color: var(--text-shade-0);
 }
 
@@ -75,26 +75,24 @@ body {
     border-radius: 8px;
     margin-top: 50px;
     background-color: var(--bg-shade-2);
+    transform: skewY(-1deg);
 }
 
 .splatfest .splatfest-theme {
     color: var(--text-shade-3);
-    font-size: 4rem;
+    font-size: 48px;
     margin-left: 2%;
     margin-top: 40px;
 }
 
 .splatfest .splatfest-time {
     margin-top: 40px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: var(--text-shade-3);
     margin-left: 2%;
-    font-size: 1.5rem;
-}
-
-.splatfest .splatfest-time .calender {
-    width: 1.5rem;
-    height: 1.5rem;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
 }
 
 .splatfest .splatfest-image-container {
@@ -125,9 +123,7 @@ body {
 
 .stage .stage-name {
   color: var(--text-shade-3);
-  padding-top: 10px;
-  padding-bottom: 5px;
-  font-size: 1.25rem;
+  font-size: 24px;
 }
 
 .stage .stage-image {
@@ -138,51 +134,109 @@ body {
 }
 
 .rotations {
-    display: flex;
     padding-top: 20px;
 }
 
-.rotations .rotation-container {
-    display: flex;
-    justify-content: space-between;
+.rotations .rotations-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    width: 100%;
+    transform: skewY(-1deg);
+    column-gap: 24px;
 }
 
-.rotations .rotation-container .stage-containers {
+.rotations .rotations-container .stage-containers {
     border-radius: 8px;
+  /*  display: flex;
+    flex-wrap: wrap; */
+    background-color: var(--bg-shade-2);
+    width: 100%;
+    column-gap: normal;
+    transform: skewY(-1deg);
+    margin-top: 15px;
+}
+
+.rotations .rotations-container .title-mode {
+    font-size: 48px;
+    color: var(--text-shade-3);
+    margin-top: 15px;
+    border-bottom: 0px;
+    border-radius: 12px 12px 0px 0px;
+    width: 100%;
+    padding-left: 48px;
+    padding-top: 48px;
+    padding-bottom: 48px;
+    background-color: var(--bg-shade-2);
+    box-sizing: border-box;
+}
+
+.rotations .rotations-container .separator {
+    font-size: 36px;
+    color: var(--text-shade-3);
+    width: 100%;
+    height: 72px;
+    background-color: var(--accent-shade-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-column: 1 / span 2;
+}
+
+.rotations .rotations-container .stages-container {
+    display: flex;
+}
+
+.rotations .rotations-container .rotation-container {
     display: flex;
     flex-wrap: wrap;
+    border-bottom: 0px;
+    border-top: 0px;
     background-color: var(--bg-shade-2);
-    width: 48%;
 }
 
-.rotations .rotation-container .stage-containers .title-mode {
-    width: 100%;
-    font-size: 3rem;
-    color: var(--text-shade-3);
+.rotations .rotations-container .rotation-container .rotation-mode {
+    width: 90%;
     margin-left: 2%;
     margin-top: 20px;
+    color: var(--text-shade-3);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
 }
 
-.rotations .rotation-container .stage-containers .rotation-info {
+.rotations .rotations-container .rotation-container .rotation-time {
+    width: 90%;
+    margin-left: 2%;
+    margin-top: 20px;
+    color: var(--text-shade-3);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+
+/*.rotations .rotations-container .stage-containers .rotation-info {
     width: 90%;
     margin-left: 2%;
     margin-top: 40px;
-}
+    color: var(--text-shade-3);
+    font-size: 16px
+} */
 
-.rotations .rotation-container .stage-containers .rotation-info .mode-image {
-    width: 1.5rem;
-    height: 1.5rem;
-}
-
-.rotations .rotation-container .stage-containers .rotation-info .clock {
-    width: 1.5rem;
-    height: 1.5rem;
-}
-
-.green {
+.green-full {
     border: 10px solid var(--green-shade-1);
 }
 
-.orange {
-    border: 10px solid #f28f0d;
+.orange-full {
+    border: 10px solid #F46E01;
+}
+
+.green-dashed {
+    border: 10px dashed var(--green-shade-1);
+}
+
+.orange-dashed {
+    border: 10px dashed #F46E01;
 }

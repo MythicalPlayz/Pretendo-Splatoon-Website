@@ -4,7 +4,7 @@ module.exports = {
     getSplatfestTime,
     getSplatfestTeam,
     getSplatfestMode,
-    getCurrentRotation,
+    getCurrentRotations,
 }
 
 function getSplatfestsMapIDs(content,justtable){
@@ -153,13 +153,11 @@ function CalculateWhichRotation(filedate){
     return rotationNumber
 }
 
-function getCurrentRotation(content){
+function getCurrentRotations(content){
   const number = CalculateWhichRotation(getDateOfFirstRotaion(content))
-  let Rotations = getRotationInfoAtIndex(content,number)
   let ReturnedRotation = []
-  ReturnedRotation.push(Rotations)
-  if (number < 179){
-    ReturnedRotation.push(getRotationInfoAtIndex(content,number + 1))
+  for (let i = number;i < 180;i++){
+    ReturnedRotation.push(getRotationInfoAtIndex(content,i))
   }
   return ReturnedRotation
 }

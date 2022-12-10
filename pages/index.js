@@ -24,9 +24,9 @@ import { GetSplatfestData, GetMapRotations,UseNintendoRotation } from '../utils/
 
 export async function getServerSideProps(ctx) {
 	
-	const useNintendo = "false"
-	const forceSplatfests = "true"
-	UseNintendoRotation(useNintendo.toLowerCase() === "true")
+	const useNintendo = false
+	const forceSplatfests = true
+	UseNintendoRotation(useNintendo)
 
     const splatfestinfoarray = await GetSplatfestData()
 	const timestart = new Date(splatfestinfoarray[1][1] * 1000)
@@ -37,9 +37,9 @@ export async function getServerSideProps(ctx) {
 	let avaliable = false
 	let Sstatus = ""
 	const currentTime =  Date.parse(new Date()) / 1000
-	if (currentTime < splatfestinfoarray[1][3] || forceSplatfests.toLowerCase() === "true"){
+	if (currentTime < splatfestinfoarray[1][3] || forceSplatfests){
 		avaliable = true
-		if (forceSplatfests.toLowerCase() === "true") {
+		if (forceSplatfests) {
 			Sstatus = "FORCE_LOADED"
 		}
 		else if (currentTime >= splatfestinfoarray[1][1]) {
@@ -65,8 +65,9 @@ export async function getServerSideProps(ctx) {
 
 //Get current Rotation as well as the next one if available
 	const rotationsarray = await GetMapRotations()
+	console.log(rotationsarray[0])
 	const currentrotationarray = rotationsarray[0]
-	const hasNext = (rotationsarray.length === 2)
+	const hasNext = (rotationsarray.length >= 2)
 	const currentrotation = {
 		normalStages: currentrotationarray[0],
 		normalIDs: currentrotationarray[1],
@@ -74,7 +75,7 @@ export async function getServerSideProps(ctx) {
 		rankedStages: currentrotationarray[3],
 		rankedIDs: currentrotationarray[4]
 	}
-	var nextrotation = {avaliable: false}
+	/*var nextrotation = {avaliable: false}
 	if (hasNext) {
 		const nextrotationarray = rotationsarray[1]
 		nextrotation = {
@@ -84,10 +85,10 @@ export async function getServerSideProps(ctx) {
 			rankedStages: nextrotationarray[3],
 			rankedIDs: nextrotationarray[4],
 			avaliable: true
-		}
-	}
+		} 
+	} */
 
-	const rotationdata = {currentrotation,nextrotation}
+	const rotationdata = {currentrotation}
 	return {
 		props: {
 			splatfest,
@@ -107,7 +108,7 @@ function Home({splatfest,rotationdata}) {
 	<div class="splatfest">
 		<div class="splatfest-theme"><b>Splatfest: {splatfest.theme}</b></div>
 		<div class="splatfest-time">
-			<Image className="calender" src={splatfestimage} alt =""/>{splatfest.timeOfFest}
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><rect x="40" y="40" width="176" height="176" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></rect><line x1="176" y1="20" x2="176" y2="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="80" y1="20" x2="80" y2="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="40" y1="88" x2="216" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>{splatfest.timeOfFest}
 		</div>
 		<div class="splatfest-image-container">
 			<Image className="splatfest-image" src={splatfestimage} alt=""/>
@@ -128,33 +129,39 @@ function Home({splatfest,rotationdata}) {
 		</div>
 	</div>
 	<div class="rotations">
-		<div class= "rotation-container">
-			<div class = "stage-containers green">
-				<div class="title-mode"><b>Regular Battles</b></div>
-				<div class="stage">
-					<div class="stage-name">{rotationdata.currentrotation.normalStages[0]}</div>
-					<Image className="stage-image" src={stages[rotationdata.currentrotation.normalIDs[0]]} alt=""/>
+		<div class= "rotations-container">
+				<div class="title-mode green-full"><b>Regular Battles</b></div>
+				<div class="title-mode orange-full"><b>Ranked Battles</b></div>
+				<div class="separator"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><polyline points="128 72 128 128 184 128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg><b>Now</b></div>
+				<div class="rotation-container green-full">
+					<div class="stages-container">
+						<div class="stage">
+							<div class="stage-name">{rotationdata.currentrotation.normalStages[0]}</div>
+							<Image className="stage-image" src={stages[rotationdata.currentrotation.normalIDs[0]]} alt=""/>
+						</div>
+            			<div class="stage">
+							<div class="stage-name">{rotationdata.currentrotation.normalStages[1]}</div>
+							<Image class="stage-image" src={stages[rotationdata.currentrotation.normalIDs[1]]} alt=""/>
+						</div>
+					</div>
+					<div class="rotation-mode"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><rect x="40" y="40" width="176" height="176" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></rect><line x1="42.3" y1="42.3" x2="213.7" y2="213.7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>Turf War</div>
+					<div class="rotation-time"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><polyline points="128 72 128 128 184 128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>Time Oh My</div>
 				</div>
-            	<div class="stage">
-					<div class="stage-name">{rotationdata.currentrotation.normalStages[1]}</div>
-					<Image class="stage-image" src={stages[rotationdata.currentrotation.normalIDs[1]]} alt=""/>
+				<div class="rotation-container orange-full">
+					<div class="stages-container">
+						<div class="stage">
+							<div class="stage-name">{rotationdata.currentrotation.rankedStages[0]}</div>
+							<Image className="stage-image" src={stages[rotationdata.currentrotation.rankedIDs[0]]} alt=""/>
+						</div>
+            			<div class="stage">
+							<div class="stage-name">{rotationdata.currentrotation.rankedStages[1]}</div>
+							<Image class="stage-image" src={stages[rotationdata.currentrotation.rankedIDs[1]]} alt=""/>
+						</div>
+					</div>
+					<div class="rotation-mode"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><rect x="40" y="40" width="176" height="176" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></rect><line x1="42.3" y1="42.3" x2="213.7" y2="213.7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>{rotationdata.currentrotation.rankedmode}</div>
+					<div class="rotation-time"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><polyline points="128 72 128 128 184 128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>Time Oh My</div>
 				</div>
-				<div class="rotation-info">
-					<Image class="mode-image" src={splatfestimage} alt =""/>Turf War
-					<Image class="clock" src={splatfestimage} alt =""/> 9:00 AM - 11:00  AM
-				</div>
-			</div>
-			<div class = "stage-containers orange">
-			<div class="title-mode"><b>Ranked Battles</b></div>
-			<div class="stage">
-					<div class="stage-name">{rotationdata.currentrotation.rankedStages[0]}</div>
-					<Image className="stage-image" src={stages[rotationdata.currentrotation.rankedIDs[0]]} alt=""/>
-				</div>
-            	<div class="stage">
-					<div class="stage-name">{rotationdata.currentrotation.rankedStages[1]}</div>
-					<Image class="stage-image" src={stages[rotationdata.currentrotation.rankedIDs[1]]} alt=""/>
-				</div>
-			</div>
+				<div class="separator"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><polyline points="128 72 128 128 184 128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg><b>Now</b></div>
 		</div>
 	</div>
 </div>
@@ -162,3 +169,6 @@ function Home({splatfest,rotationdata}) {
 }
 
 export default Home
+
+//<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><rect x="40" y="40" width="176" height="176" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></rect><line x1="42.3" y1="42.3" x2="213.7" y2="213.7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>{rotationdata.currentrotation.rankedmode}
+					//<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><polyline points="128 72 128 128 184 128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg> 9:00 AM - 11:00  AM

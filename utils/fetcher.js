@@ -48,7 +48,7 @@ async function GetMapRotations(){
     const maininfofile = await httpGetAsync(file)
     const mainfobymal = boss.decrypt(Buffer.from(maininfofile),BOSS_AES_KEY,BOSS_HMAC_KEY)
     const mainfilearray = new byaml(mainfobymal.content).root
-    rotationcache = spoon.getCurrentRotation(mainfilearray)
+    rotationcache = spoon.getCurrentRotations(mainfilearray)
     SetTimeCache()
      } catch (c) {
         console.warn(c)
